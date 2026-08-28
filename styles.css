@@ -246,6 +246,15 @@ p{margin:0}
 .authority-quote p{font-size:clamp(21px,2.2vw,28px);font-weight:600;line-height:1.2;letter-spacing:-.02em;margin-top:12px}
 .authority-quote span{display:block;margin-top:16px;font-size:15px;line-height:1.55;color:color-mix(in oklch,#fff 78%,transparent)}
 
+/* coluna direita: selo em cima, frase do Gabriel embaixo */
+.authority-aside{display:flex;flex-direction:column;gap:20px}
+.authority-said{position:relative;margin:0;padding:20px 22px;background:var(--mist);
+  border:1px solid var(--line);border-radius:var(--r-surface);
+  font-size:15px;line-height:1.5;color:var(--ink);font-weight:600;letter-spacing:-.01em}
+.authority-said>i{display:block;font-size:30px;line-height:.5;color:var(--slate);opacity:.55;margin-bottom:10px}
+.authority-said em{display:block;margin-top:12px;font-style:normal;font-size:12px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+
 /* ============================================================
    COMO TRABALHAMOS
    ============================================================ */
