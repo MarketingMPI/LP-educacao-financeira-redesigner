@@ -1003,19 +1003,28 @@ p{margin:0}
   .feature-play svg{width:20px;height:20px}
 }
 
-/* Cabeçalho de sub-bloco */
-.videos-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+/* Cabeçalho de sub-bloco + navegação do carrossel */
+.head-tools{display:flex;align-items:center;gap:18px}
+.carousel-nav{display:flex;gap:8px}
+.cnav{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:#fff;color:var(--ink);font-size:17px;cursor:pointer;
+  transition:background .25s var(--ease),border-color .25s,color .25s,transform .25s var(--ease)}
+.cnav:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cnav:active{transform:scale(.94)}
+.cnav:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.cnav i{line-height:1}
+@media (max-width:480px){.carousel-nav{display:none}}
+.videos-head{display:flex;align-items:center;justify-content:space-between;gap:20px;
   margin:clamp(48px,5vw,72px) 0 clamp(22px,2.4vw,30px);padding-bottom:16px;border-bottom:1px solid var(--line)}
 .videos-head h3{font-size:clamp(19px,2vw,24px);color:var(--ink);letter-spacing:-.02em}
 
-/* Vídeos recentes: faixa deslizante (mesma mecânica da faixa de mídia da home) */
-.video-marquee{position:relative;overflow:hidden;
+/* Vídeos recentes: carrossel deslizante (auto + setas + arrasto) */
+.video-marquee{position:relative;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;
+  scroll-behavior:smooth;overscroll-behavior-x:contain;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent)}
-.video-track{display:flex;width:max-content;align-items:flex-start;gap:clamp(18px,2vw,26px);
-  animation:mp-vid-marquee 60s linear infinite}
-.video-marquee:hover .video-track{animation-play-state:paused}
-@keyframes mp-vid-marquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.video-marquee::-webkit-scrollbar{display:none}
+.video-track{display:flex;width:max-content;align-items:flex-start;gap:clamp(18px,2vw,26px)}
 
 .video-track .vid{flex:none;width:clamp(260px,25vw,320px);display:flex;flex-direction:column;
   transition:transform .3s var(--ease)}
@@ -1032,9 +1041,6 @@ p{margin:0}
 .video-tag{display:block;margin-top:14px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
 .video-track .vid strong{display:block;margin-top:7px;font-size:14.5px;font-weight:700;color:var(--ink);
   letter-spacing:-.01em;line-height:1.35}
-@media (prefers-reduced-motion:reduce){
-  .video-track{animation:none;overflow-x:auto;width:auto;padding-bottom:8px}
-}
 
 /* ---------- CURSOS (capa 4:5 completa + texto embaixo) ---------- */
 /* cards a 60% da largura anterior (-40%), centralizados */
@@ -1055,14 +1061,13 @@ p{margin:0}
 .curso-link span{transition:transform .25s var(--ease)}
 .curso-card>a:hover .curso-link span{transform:translateX(4px)}
 
-/* ---------- MATERIAIS GRATUITOS (faixa deslizante, capa 4:5 + texto) ---------- */
-.mat-marquee{position:relative;overflow:hidden;
+/* ---------- MATERIAIS GRATUITOS (carrossel: capa 4:5 + texto) ---------- */
+.mat-marquee{position:relative;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;
+  scroll-behavior:smooth;overscroll-behavior-x:contain;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent)}
-.mat-track{display:flex;width:max-content;align-items:stretch;gap:24px;
-  animation:mp-mat-marquee 75s linear infinite}
-.mat-marquee:hover .mat-track{animation-play-state:paused}
-@keyframes mp-mat-marquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.mat-marquee::-webkit-scrollbar{display:none}
+.mat-track{display:flex;width:max-content;align-items:stretch;gap:24px}
 
 /* card com a MESMA largura do grid de 3 colunas anterior */
 .mat-track .mat{flex:none;width:clamp(280px,26vw,340px);display:flex;flex-direction:column;
@@ -1080,9 +1085,6 @@ p{margin:0}
 .mat-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:18px;font-size:13.5px;font-weight:700;color:var(--ink)}
 .mat-link span{transition:transform .25s var(--ease)}
 .mat-track .mat:hover .mat-link span{transform:translateX(4px)}
-@media (prefers-reduced-motion:reduce){
-  .mat-track{animation:none;overflow-x:auto;width:auto;padding-bottom:8px}
-}
 
 /* ---------- OUTROS CANAIS ---------- */
 .channels{background:var(--mist)}

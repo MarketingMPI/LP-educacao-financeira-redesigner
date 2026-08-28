@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="styles.css?v=36">
+  <link rel="stylesheet" href="styles.css?v=38">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -253,10 +253,16 @@
         <!-- Faixa de vídeos -->
         <div class="videos-head">
           <h3>Vídeos recentes</h3>
-          <a class="textlink" href="https://www.youtube.com/@Gabriel_Liberato/videos" target="_blank" rel="noopener">Ver todos <span aria-hidden="true">&rarr;</span></a>
+          <div class="head-tools">
+            <a class="textlink" href="https://www.youtube.com/@Gabriel_Liberato/videos" target="_blank" rel="noopener">Ver todos <span aria-hidden="true">&rarr;</span></a>
+            <div class="carousel-nav">
+              <button type="button" class="cnav cnav-prev" data-carousel-prev="videos" aria-label="Ver vídeos anteriores"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="cnav cnav-next" data-carousel-next="videos" aria-label="Ver próximos vídeos"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
         </div>
 
-        <div class="video-marquee" aria-label="Vídeos recentes do canal">
+        <div class="video-marquee" data-carousel="videos" aria-label="Vídeos recentes do canal">
           <div class="video-track">
 
             <a class="vid" href="https://www.youtube.com/watch?v=K0sFaUhsAwc" target="_blank" rel="noopener">
@@ -414,8 +420,14 @@
 
         <div class="videos-head reveal" style="margin-top:clamp(48px,5vw,72px)">
           <h3>Materiais gratuitos</h3>
+          <div class="head-tools">
+            <div class="carousel-nav">
+              <button type="button" class="cnav cnav-prev" data-carousel-prev="materiais" aria-label="Ver materiais anteriores"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="cnav cnav-next" data-carousel-next="materiais" aria-label="Ver próximos materiais"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
         </div>
-        <div class="mat-marquee reveal" aria-label="Materiais gratuitos">
+        <div class="mat-marquee reveal" data-carousel="materiais" aria-label="Materiais gratuitos">
           <div class="mat-track">
             <a class="mat" href="https://meupatrimonio.com/combo-ebooks-como-comecar-a-investir/">
             <div class="mat-media"><img src="assets/materiais/kit-combo-ebooks.png" alt="Kit completo: 3 ebooks para alavancar seus investimentos" loading="lazy" decoding="async"></div>
@@ -646,6 +658,6 @@
     <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.5-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3 0 1.3 1 2.6 1.1 2.8.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2z"/></svg>
   </a>
 
-  <script src="app.js?v=36" defer></script>
+  <script src="app.js?v=38" defer></script>
 </body>
 </html>
