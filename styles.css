@@ -1020,7 +1020,7 @@ p{margin:0}
 
 /* Vídeos recentes: carrossel deslizante (auto + setas + arrasto) */
 .video-marquee{position:relative;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;
-  scroll-behavior:smooth;overscroll-behavior-x:contain;
+  scroll-behavior:auto;overscroll-behavior-x:contain;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent)}
 .video-marquee::-webkit-scrollbar{display:none}
@@ -1063,7 +1063,7 @@ p{margin:0}
 
 /* ---------- MATERIAIS GRATUITOS (carrossel: capa 4:5 + texto) ---------- */
 .mat-marquee{position:relative;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;
-  scroll-behavior:smooth;overscroll-behavior-x:contain;
+  scroll-behavior:auto;overscroll-behavior-x:contain;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent)}
 .mat-marquee::-webkit-scrollbar{display:none}

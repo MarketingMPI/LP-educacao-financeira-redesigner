@@ -286,57 +286,81 @@ qsa('.faq-q').forEach(btn => {
   });
 });
 
-/* ---------- Carrosséis (auto-scroll + setas + arrasto) ----------
-   A faixa rola sozinha devagar. O usuário pode:
+
+/* ---------- Carrosséis (auto-scroll contínuo + setas + arrasto) ----------
+   A faixa rola sozinha o tempo todo. O usuário pode, a qualquer momento:
    - clicar nas setas para avançar/voltar uma "página" de cards
    - arrastar com o mouse ou o dedo
-   - rolar com trackpad
-   Em qualquer interação o auto-scroll pausa e volta 2,5s depois.
-   O conteúdo é duplicado no HTML, então o loop é feito voltando
-   ao meio quando passa da metade (e vice-versa), sem salto visível. */
+   - rolar com o trackpad
+   Depois de interagir, o movimento automático volta sozinho em 2,5s.
+
+   Detalhes que importam:
+   - scrollLeft arredonda para inteiro, então o avanço é acumulado num
+     float (`pos`) e só depois aplicado; sem isso 0.4px/frame vira zero.
+   - o CSS usa scroll-behavior:auto (smooth cancelaria o passo a cada frame);
+     a rolagem suave das setas é feita pontualmente via scrollTo.
+   - o conteúdo está duplicado no HTML, então o loop é feito voltando meia
+     largura quando passa da metade (e vice-versa), sem salto visível. */
 qsa('[data-carousel]').forEach(viewport => {
   const track = viewport.firstElementChild;
   if (!track) return;
 
-  const name    = viewport.getAttribute('data-carousel');
-  const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const SPEED   = 0.4;      // px por frame do movimento automático
-  const RESUME  = 2500;     // ms de pausa após interagir
+  const name   = viewport.getAttribute('data-carousel');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SPEED  = 0.35;   // px por frame (~21px/s a 60fps)
+  const RESUME = 2500;   // ms até o automático voltar
 
-  let paused = reduce, idleTimer = null, raf = null;
+  let paused = reduce;
+  let pos    = 0;        // posição em float, espelha o scrollLeft
+  let idleTimer = null;
+  let smoothing = false; // true enquanto uma seta anima
 
-  const half = () => track.scrollWidth / 2;   // metade = 1 cópia do conteúdo
+  const half = () => track.scrollWidth / 2;
 
-  // mantém a posição dentro da primeira cópia, criando o loop infinito
+  // mantém a posição dentro da primeira cópia (loop infinito)
   function wrap() {
     const h = half();
     if (h <= 0) return;
-    if (viewport.scrollLeft >= h) viewport.scrollLeft -= h;
-    else if (viewport.scrollLeft <= 0) viewport.scrollLeft += h;
+    if (pos >= h)      { pos -= h; viewport.scrollLeft = pos; }
+    else if (pos < 0)  { pos += h; viewport.scrollLeft = pos; }
   }
 
   function tick() {
-    if (!paused) { viewport.scrollLeft += SPEED; wrap(); }
-    raf = requestAnimationFrame(tick);
+    if (!paused && !smoothing) {
+      pos += SPEED;
+      wrap();
+      viewport.scrollLeft = pos;
+    }
+    requestAnimationFrame(tick);
   }
 
-  function hold() {
+  function hold(resume = true) {
     paused = true;
     clearTimeout(idleTimer);
-    if (!reduce) idleTimer = setTimeout(() => { paused = false; }, RESUME);
+    if (resume && !reduce) idleTimer = setTimeout(() => { paused = false; }, RESUME);
   }
 
-  // ---- setas: avançam uma página (largura visível menos um respiro) ----
+  // ---- setas: uma "página" por clique, com rolagem suave ----
   const step = () => Math.max(240, viewport.clientWidth * 0.8);
 
   function go(dir) {
     hold();
     const h = half();
-    let target = viewport.scrollLeft + dir * step();
-    // reposiciona antes de animar, para nunca travar nas pontas
-    if (target < 0)      { viewport.scrollLeft += h; target += h; }
-    else if (target > h) { viewport.scrollLeft -= h; target -= h; }
+    let target = pos + dir * step();
+
+    // reposiciona ANTES de animar, para nunca travar nas pontas
+    if (target < 0)      { pos += h; viewport.scrollLeft = pos; target += h; }
+    else if (target > h) { pos -= h; viewport.scrollLeft = pos; target -= h; }
+
+    smoothing = true;
     viewport.scrollTo({ left: target, behavior: 'smooth' });
+
+    // devolve o controle ao loop quando a animação termina
+    clearTimeout(go._t);
+    go._t = setTimeout(() => {
+      pos = viewport.scrollLeft;
+      smoothing = false;
+    }, 420);
   }
 
   const prev = qs(`[data-carousel-prev="${name}"]`);
@@ -344,16 +368,16 @@ qsa('[data-carousel]').forEach(viewport => {
   if (prev) prev.addEventListener('click', () => go(-1));
   if (next) next.addEventListener('click', () => go(1));
 
-  // ---- pausa ao passar o mouse / focar via teclado ----
-  viewport.addEventListener('mouseenter', () => { paused = true; clearTimeout(idleTimer); });
+  // ---- pausa ao passar o mouse / navegar por teclado ----
+  viewport.addEventListener('mouseenter', () => hold(false));
   viewport.addEventListener('mouseleave', () => { if (!reduce) paused = false; });
-  viewport.addEventListener('focusin',  () => { paused = true; clearTimeout(idleTimer); });
-  viewport.addEventListener('focusout', () => { if (!reduce) paused = false; });
+  viewport.addEventListener('focusin',    () => hold(false));
+  viewport.addEventListener('focusout',   () => { if (!reduce) paused = false; });
 
   // ---- rolagem manual (trackpad, touch) ----
-  viewport.addEventListener('scroll', wrap, { passive: true });
-  viewport.addEventListener('wheel',  hold, { passive: true });
-  viewport.addEventListener('touchstart', hold, { passive: true });
+  viewport.addEventListener('wheel', () => { pos = viewport.scrollLeft; hold(); }, { passive: true });
+  viewport.addEventListener('touchstart', () => hold(), { passive: true });
+  viewport.addEventListener('touchmove',  () => { pos = viewport.scrollLeft; }, { passive: true });
 
   // ---- arrastar com o mouse ----
   let dragging = false, startX = 0, startLeft = 0, moved = 0;
@@ -362,37 +386,40 @@ qsa('[data-carousel]').forEach(viewport => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     dragging = true; moved = 0;
     startX = e.clientX; startLeft = viewport.scrollLeft;
-    viewport.style.scrollBehavior = 'auto';
-    hold();
+    smoothing = false;
+    hold(false);
   });
 
   viewport.addEventListener('pointermove', e => {
     if (!dragging) return;
     const dx = e.clientX - startX;
     moved = Math.abs(dx);
-    if (moved > 4) viewport.setPointerCapture(e.pointerId);
-    viewport.scrollLeft = startLeft - dx;
+    if (moved > 4 && viewport.setPointerCapture) {
+      try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+    }
+    pos = startLeft - dx;
     wrap();
+    viewport.scrollLeft = pos;
   });
 
   function endDrag() {
     if (!dragging) return;
     dragging = false;
-    viewport.style.scrollBehavior = 'smooth';
+    pos = viewport.scrollLeft;
     hold();
   }
   viewport.addEventListener('pointerup', endDrag);
   viewport.addEventListener('pointercancel', endDrag);
 
-  // impede que o arrasto dispare o link do card
+  // um arrasto não deve abrir o link do card
   track.addEventListener('click', e => {
     if (moved > 6) { e.preventDefault(); e.stopPropagation(); }
     moved = 0;
   }, true);
 
-  // começa no meio (primeira cópia), para poder voltar sem travar
+  // arranca o loop
   requestAnimationFrame(() => {
-    viewport.scrollLeft = 1;
-    if (!reduce) tick();
+    pos = viewport.scrollLeft = 1;
+    tick();   // roda sempre; `paused` decide se avança (respeita reduced-motion)
   });
 });
