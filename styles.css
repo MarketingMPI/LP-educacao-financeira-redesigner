@@ -1036,8 +1036,22 @@ p{margin:0}
   .video-track{animation:none;overflow-x:auto;width:auto;padding-bottom:8px}
 }
 
-/* ---------- CURSOS: grid de 2 ---------- */
-.offer-grid-2{grid-template-columns:repeat(2,1fr);gap:24px}
+/* ---------- CURSOS (capa 4:5 completa + texto embaixo) ---------- */
+.curso-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.curso-card>a{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-product);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+.curso-card>a:hover{transform:translateY(-6px);box-shadow:0 28px 60px color-mix(in oklab,var(--ink) 12%,transparent);border-color:var(--slate)}
+/* capa 768x960 (4:5): a arte inteira, sem recorte */
+.curso-media{position:relative;aspect-ratio:768/960;overflow:hidden;background:var(--mist)}
+.curso-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.curso-card>a:hover .curso-media img{transform:scale(1.03)}
+.curso-body{display:flex;flex-direction:column;flex:1;padding:clamp(24px,2.2vw,32px)}
+.curso-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:11px}
+.curso-body strong{display:block;font-size:clamp(21px,2vw,27px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.12}
+.curso-body p{margin-top:12px;font-size:14.5px;color:var(--slate);line-height:1.6}
+.curso-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:20px;font-size:14px;font-weight:700;color:var(--ink)}
+.curso-link span{transition:transform .25s var(--ease)}
+.curso-card>a:hover .curso-link span{transform:translateX(4px)}
 
 /* ---------- MATERIAIS GRATUITOS (faixa deslizante, capa 4:5 + texto) ---------- */
 .mat-marquee{position:relative;overflow:hidden;
@@ -1127,6 +1141,6 @@ p{margin:0}
 }
 @media (max-width:600px){
   .chan-grid{grid-template-columns:1fr}
-  .offer-grid-2{grid-template-columns:1fr}
+  .curso-cards{grid-template-columns:1fr}
   .videos-head{flex-direction:column;align-items:flex-start;gap:10px}
 }
