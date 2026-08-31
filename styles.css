@@ -104,8 +104,12 @@ p{margin:0}
 .site-header.is-hidden{transform:translateY(-100%)}
 .site-header.is-scrolled{background:color-mix(in oklch,var(--paper) 88%,transparent);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
 .header-inner{width:var(--shell);margin-inline:auto;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{display:flex;align-items:center;gap:12px}
+.brand{display:inline-flex;flex-direction:column;align-items:flex-end;gap:0;line-height:0}
 .brand-owl{width:88px;height:88px;object-fit:contain}
+/* Etiqueta da linha de produto, encaixada sob o wordmark (padrão da marca) */
+.brand-badge{display:inline-block;margin-top:-14px;margin-right:2px;
+  font-size:11px;font-weight:700;letter-spacing:.01em;line-height:1;
+  color:var(--forest);background:#fff;border-radius:4px;padding:5px 9px;white-space:nowrap}
 .brand-name{font-weight:500;font-size:17px;letter-spacing:-.02em;color:var(--forest)}
 .brand-name b{color:var(--signal)}
 
@@ -415,8 +419,14 @@ p{margin:0}
    FOOTER
    ============================================================ */
 .site-footer{background:var(--deep);color:#fff;padding-top:clamp(60px,7vw,90px)}
-.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:40px;padding-bottom:56px;border-bottom:1px solid color-mix(in oklch,#fff 12%,transparent)}
+.footer-top{position:relative;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:40px;padding-bottom:56px;border-bottom:1px solid color-mix(in oklch,#fff 12%,transparent)}
 .footer-brand .brand-owl{width:88px;height:88px;filter:brightness(0) invert(1)}
+/* a etiqueta do rodapé é branca sobre o fundo escuro */
+.footer-brand .brand-badge{background:#fff;color:var(--ink)}
+/* etiqueta grande, canto superior direito do rodapé */
+.footer-tag{position:absolute;top:0;right:0;display:inline-block;
+  font-size:15px;font-weight:700;letter-spacing:.02em;line-height:1;
+  color:var(--ink);background:#fff;border-radius:6px;padding:9px 16px;white-space:nowrap}
 .footer-brand p{margin-top:20px;font-size:14px;color:color-mix(in oklch,#fff 66%,transparent);max-width:34ch;line-height:1.6}
 .footer-col h5{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);margin:0 0 18px;font-weight:600}
 .footer-col a{display:block;padding:7px 0;font-size:14px;color:color-mix(in oklch,#fff 74%,transparent);font-weight:400}
@@ -905,6 +915,7 @@ p{margin:0}
   .desktop-nav,.header-cta .btn-ghost{display:none}
   .menu-toggle{display:flex}
   .brand-owl{width:60px;height:60px}
+  .brand-badge{font-size:9.5px;padding:4px 7px;margin-top:-10px}
   .section{padding-block:clamp(56px,11vw,80px)}
   .footer-brand .brand-owl{width:68px;height:68px}
   .mpi-wordmark{font-size:clamp(46px,14vw,90px)}
@@ -934,6 +945,8 @@ p{margin:0}
   .stats-row .stat{border-left:0;border-top:1px solid var(--line);padding:24px 4px}
   .stats-row .stat:first-child{border-top:0}
   .footer-top{grid-template-columns:1fr;gap:28px}
+  /* no mobile a etiqueta sai do canto absoluto e entra no fluxo */
+  .footer-tag{position:static;display:table;margin-bottom:4px;font-size:13.5px;padding:8px 14px}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:12px}
   .hero-actions,.app-actions,.pros-actions,.close-actions,.hero-words{flex-direction:column;align-items:flex-start}
   .hero-actions,.app-actions{align-items:stretch}
