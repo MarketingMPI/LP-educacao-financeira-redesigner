@@ -987,9 +987,20 @@ p{margin:0}
 .track-label span{display:inline-block;font-size:clamp(21px,2.3vw,29px);font-weight:800;
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1}
 .track-desc{margin:0;max-width:62ch;font-size:16px;color:var(--slate);line-height:1.6}
-/* a trilha B2C abre em fundo branco; a B2B fecha o bloco anterior (cinza) */
+/* a trilha B2C abre em fundo branco */
 .track-mark-you{background:var(--paper)}
-.track-mark-pro{background:var(--paper)}
+
+/* a trilha B2B usa o tratamento do MP Intelligence da home (wordmark
+   vazado sobre fundo cheio), aqui na escala de cinza da página:
+   quebra sutil que avisa a troca de jornada sem virar outra seção */
+.track-mark-pro{background:linear-gradient(170deg,var(--forest),var(--deep));color:#fff;overflow:hidden}
+.track-mark-pro .shell{border-top:0;padding-top:0}
+.track-wordmark{margin:0 0 clamp(18px,2vw,26px);font-size:clamp(46px,10vw,132px);font-weight:500;
+  letter-spacing:-.04em;line-height:.9;color:transparent;
+  -webkit-text-stroke:1px color-mix(in oklch,#fff 30%,transparent);opacity:.55;
+  user-select:none;pointer-events:none}
+.track-mark-pro .track-label span{color:#fff}
+.track-mark-pro .track-desc{color:color-mix(in oklch,#fff 76%,transparent)}
 /* o bloco seguinte já tem padding próprio, então encurtamos o topo dele */
 .track-mark + .section{padding-top:clamp(18px,2vw,26px)}
 
@@ -1126,7 +1137,19 @@ p{margin:0}
 .chan-card>a:hover .chan-arrow{color:var(--ink);transform:translateX(4px)}
 
 /* ---------- PARA PROFISSIONAIS (destaque MP PRO) ---------- */
-.pro-content{background:var(--paper)}
+/* a faixa escura da trilha B2B continua na seção do MP PRO, para a
+   quebra ler como um bloco só e não como uma tira solta */
+.pro-content{background:linear-gradient(170deg,var(--deep),var(--forest));color:#fff}
+.pro-content .kicker{color:var(--mint)}
+.pro-content h2,.pro-content h3{color:#fff}
+.pro-content .lead,.pro-content .pro-feature-copy p{color:color-mix(in oklch,#fff 76%,transparent)}
+.pro-content .pro-feature{background:color-mix(in oklch,#fff 7%,transparent);border-color:color-mix(in oklch,#fff 14%,transparent)}
+.pro-content .pro-feature-tag{color:var(--mint)}
+.pro-content .pro-feature-list li{color:#fff}
+.pro-content .pro-feature-list i{color:var(--mint)}
+.pro-content .mark{background:color-mix(in oklch,#fff 16%,transparent);color:#fff}
+.pro-content .btn-primary{background:#fff;color:var(--ink)}
+.pro-content .btn-primary:hover{background:color-mix(in oklch,#fff 88%,#000)}
 .pro-feature{display:grid;grid-template-columns:.92fr 1.08fr;align-items:stretch;
   border:1px solid var(--line);border-radius:var(--r-product);overflow:hidden;background:var(--mist)}
 /* capa: a arte preenche o bloco inteiro, sem moldura */
