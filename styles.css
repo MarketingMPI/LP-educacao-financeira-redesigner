@@ -1001,6 +1001,9 @@ p{margin:0}
 /* no fundo escuro o contorno vira branco */
 .track-mark-pro .track-label span{-webkit-text-stroke-color:color-mix(in oklch,#fff 34%,transparent);opacity:.62}
 .track-mark-pro .track-desc{color:color-mix(in oklch,#fff 76%,transparent)}
+/* alvo de âncora: compensa o padding do topo para a régua parar logo
+   abaixo do header, e não no vazio acima dela */
+.track-mark[id]{scroll-margin-top:clamp(40px,5vw,64px)}
 /* o bloco seguinte já tem padding próprio, então encurtamos o topo dele */
 .track-mark + .section{padding-top:clamp(18px,2vw,26px)}
 
