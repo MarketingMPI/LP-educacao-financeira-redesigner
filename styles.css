@@ -978,14 +978,15 @@ p{margin:0}
 .channel-head .btn i{font-size:18px}
 
 /* ---------- MARCADOR DE TRILHA (B2C "Para você" x B2B "Para profissionais") ----------
-   Divisor de jornada: mesma linguagem dos grupos do menu Ecossistema.
-   Não é uma seção, é uma régua que anuncia para quem é o bloco a seguir. */
-.track-mark{padding:clamp(52px,5.5vw,78px) 0 clamp(20px,2vw,28px)}
-.track-mark .shell{display:flex;flex-direction:column;gap:10px}
-.track-label{display:flex;align-items:center;gap:16px;margin:0}
-.track-label span{flex:none;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
-.track-label::after{content:"";flex:1;height:1px;background:var(--line)}
-.track-desc{margin:0;max-width:58ch;font-size:14.5px;color:var(--slate);line-height:1.6}
+   Divisor de jornada: é o corte mais importante da página, então pesa
+   mais que um kicker de seção — régua forte no topo + rótulo grande. */
+.track-mark{padding:clamp(64px,6.5vw,96px) 0 clamp(24px,2.4vw,34px)}
+.track-mark .shell{display:flex;flex-direction:column;gap:14px;
+  border-top:2px solid var(--ink);padding-top:clamp(22px,2.2vw,30px)}
+.track-label{margin:0}
+.track-label span{display:inline-block;font-size:clamp(21px,2.3vw,29px);font-weight:800;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1}
+.track-desc{margin:0;max-width:62ch;font-size:16px;color:var(--slate);line-height:1.6}
 /* a trilha B2C abre em fundo branco; a B2B fecha o bloco anterior (cinza) */
 .track-mark-you{background:var(--paper)}
 .track-mark-pro{background:var(--paper)}
