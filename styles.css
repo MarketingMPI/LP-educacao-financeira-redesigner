@@ -984,8 +984,11 @@ p{margin:0}
 .track-mark .shell{display:flex;flex-direction:column;gap:14px;
   border-top:2px solid var(--ink);padding-top:clamp(22px,2.2vw,30px)}
 .track-label{margin:0}
-.track-label span{display:inline-block;font-size:clamp(21px,2.3vw,29px);font-weight:800;
-  letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1}
+/* rótulo vazado (tratamento do MP Intelligence) — a cor do contorno
+   muda conforme o fundo de cada trilha */
+.track-label span{display:inline-block;font-size:clamp(38px,7.5vw,104px);font-weight:500;
+  letter-spacing:-.03em;line-height:.92;color:transparent;
+  -webkit-text-stroke:1px color-mix(in oklch,var(--ink) 42%,transparent);opacity:.85}
 .track-desc{margin:0;max-width:62ch;font-size:16px;color:var(--slate);line-height:1.6}
 /* a trilha B2C abre em fundo branco */
 .track-mark-you{background:var(--paper)}
@@ -995,10 +998,8 @@ p{margin:0}
    para não criar emenda visível entre os dois elementos */
 .track-mark-pro{background:var(--deep);color:#fff}
 .track-mark-pro .shell{border-top-color:color-mix(in oklch,#fff 30%,transparent)}
-/* o próprio rótulo recebe o tratamento vazado do MP Intelligence */
-.track-mark-pro .track-label span{font-size:clamp(38px,7.5vw,104px);font-weight:500;
-  letter-spacing:-.03em;line-height:.92;text-transform:none;color:transparent;
-  -webkit-text-stroke:1px color-mix(in oklch,#fff 34%,transparent);opacity:.62}
+/* no fundo escuro o contorno vira branco */
+.track-mark-pro .track-label span{-webkit-text-stroke-color:color-mix(in oklch,#fff 34%,transparent);opacity:.62}
 .track-mark-pro .track-desc{color:color-mix(in oklch,#fff 76%,transparent)}
 /* o bloco seguinte já tem padding próprio, então encurtamos o topo dele */
 .track-mark + .section{padding-top:clamp(18px,2vw,26px)}
