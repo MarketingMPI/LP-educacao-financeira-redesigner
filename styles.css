@@ -1204,13 +1204,13 @@ p{margin:0}
    Nesta página o fechamento é prateleira, não agendamento:
    3 portas de entrada, do gratuito ao pago.
    ============================================================ */
-.startnow{background:var(--mist);border-top:1px solid var(--line)}
+.startnow{background:var(--paper);border-top:1px solid var(--line)}
 .startnow-head{max-width:60ch;margin-bottom:clamp(32px,3.4vw,48px)}
 .startnow-head h2{font-size:clamp(30px,3.4vw,50px);color:var(--ink);margin-top:16px;line-height:1.04}
 .startnow-head .lead{margin-top:18px}
 
 .startnow-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.sn-card>a{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid var(--line);
+.sn-card>a{display:flex;flex-direction:column;height:100%;background:var(--mist);border:1px solid var(--line);
   border-radius:var(--r-product);padding:clamp(26px,2.4vw,34px);
   transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
 .sn-card>a:hover{transform:translateY(-6px);box-shadow:0 28px 60px color-mix(in oklab,var(--ink) 12%,transparent);border-color:var(--slate)}
