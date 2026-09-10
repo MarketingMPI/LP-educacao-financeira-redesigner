@@ -221,9 +221,11 @@ p{margin:0}
    AUTORIDADE
    ============================================================ */
 .authority{background:var(--paper)}
-.authority-inner{display:grid;grid-template-columns:1fr .62fr .82fr;gap:clamp(24px,3vw,44px);align-items:end}
-/* foto do professor: recorte sem fundo, alinhado à base da coluna */
-.authority-photo{margin:0;align-self:end;display:flex;justify-content:center}
+.authority-inner{display:grid;grid-template-columns:.62fr 1fr .82fr;gap:clamp(24px,3vw,44px);align-items:end}
+/* foto do professor: recorte sem fundo, alinhado à base da coluna.
+   Fica na 1ª coluna via `order`, mantendo o título antes dela no HTML
+   (ordem de leitura correta para leitores de tela). */
+.authority-photo{margin:0;order:-1;align-self:end;display:flex;justify-content:center}
 .authority-photo img{width:100%;max-width:340px;height:auto;display:block;
   filter:drop-shadow(0 18px 40px color-mix(in oklab,var(--ink) 22%,transparent))}
 .authority-copy h2{font-size:clamp(30px,3.6vw,50px);color:var(--ink);margin-top:16px;line-height:1.04}
@@ -845,9 +847,10 @@ p{margin:0}
   .hero-words{font-size:clamp(30px,7vw,52px)}
   .app-inner{grid-template-columns:1fr;gap:44px}
   .location-inner{grid-template-columns:1fr;gap:32px}
-  /* empilhado: copy, depois foto e selo lado a lado */
+  /* empilhado: copy em cima, depois foto e selo lado a lado */
   .authority-inner{grid-template-columns:1fr 1fr;gap:32px}
   .authority-copy{grid-column:1 / -1}
+  .authority-photo{order:0}
   .authority-photo img{max-width:280px}
   .seta{grid-template-columns:1fr 1fr;gap:28px 24px}
   .seta::before,.seta::after{display:none}
